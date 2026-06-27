@@ -1,0 +1,1 @@
+Get-ChildItem -Path "S:\alma\assets" -Recurse -Include *.tx | Remove-Item -Force

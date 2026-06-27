@@ -1,0 +1,63 @@
+#Listar todos los standing ass
+import maya.cmds as cmds
+
+def listar_ass_no_instanciados():
+    """
+    Devuelve una lista con las rutas de archivo .ass
+    usadas en los nodos aiStandIn que NO son instancias.
+    """
+    resultado = []
+
+    # Todos los nodos aiStandIn en la escena
+    standins = cmds.ls(type="aiStandIn") or []
+
+    for standin in standins:
+        # Verificar si es instancia
+        # Un nodo instanciado tiene más de un path en ls -l
+        paths = cmds.ls(standin, long=True)
+        if not paths:
+            continue
+
+        # Obtener el shape y revisar cuántos dagPaths lo referencian
+        dagPaths = cmds.ls(standin, dag=True, long=True)
+        if len(cmds.listRelatives(standin, parent=True, fullPath=True) or []) > 1:
+            # rarisimo, pero lo dejamos fuera
+            continue
+
+        # Determinar si el nodo shape está instanciado
+        if len(cmds.listRelatives(standin, parent=True) or []) > 1:
+            # varias transformaciones apuntando al mismo shape
+            continue
+
+        # Otra forma más robusta:
+        numParents = len(cmds.listRelatives(standin, parent=True, fullPath=True) or [])
+        if numParents > 1:
+            continue
+
+        # Verificar si el nodo shape tiene más de un path (instancia real)
+        fullPaths = cmds.ls(standin, long=True)
+        if len(fullPaths) > 1:
+            # instanciado, lo saltamos
+            continue
+
+        # Obtener la ruta del archivo .ass
+        file_path = cmds.getAttr(standin + ".dso")
+        resultado.append((standin, file_path))
+
+    return resultado
+
+# Ejecutar y mostrar resultado
+standins_no_instanciados = listar_ass_no_instanciados()
+if standins_no_instanciados:
+    print("Standins no instanciados encontrados:")
+    for name, path in standins_no_instanciados:
+        print(f" - {name}: {path}")
+else:
+    print("No se encontraron standins no instanciados.")
+
+#Parsear los ass y buscar texturas
+with open("your_standin.ass", "r") as f:
+    for line in f:
+        if "filename" in line:
+            print(line.strip())
+#Comprobar que para cada textura existe suequivalente a tx

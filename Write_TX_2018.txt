@@ -1,0 +1,11 @@
+
+Write {
+ file E:/Descargas/test/test.####.exr
+ file_type exr
+ first_part none
+ version 8
+ beforeRender "import os\nimport nuke\n\nrutaBase = os.path.dirname(nuke.thisNode().knob(\"file\").getValue())\nfilename = nuke.thisNode().knob(\"file\").getValue()\nbatchfile = rutaBase + \"ConvertTX.bat\"\nif os.path.isfile(batchfile):\n    os.remove(batchfile)\n"
+ afterFrameRender "import nuke\nimport os\n\nrutaBase = os.path.dirname(nuke.thisNode().knob(\"file\").getValue())\nfilename = nuke.thisNode().knob(\"file\").getValue()\n\n###Establecer rutas de origen y destino de los frames renderizados\nif \".####.\" in filename:\n    rutaOriginal = filename\[:filename.find(\"####\")] + str( '####' % nuke.frame()) + filename\[filename.find(\"####\")+4:]\nelif \".%04d.\" in filename:\n    rutaOriginal = filename\[:filename.find(\"%04d\")] + str( '%04d' % nuke.frame()) + filename\[filename.find(\"%04d\")+4:]\nelse:\n    rutaOriginal = filename\nrutaTX = rutaOriginal\[:-4] + \".tx\"\n\n####Craer archivo .bat con el comando más las rutas de entrada y salida\ncomandos = \"maketx -v -u --oiio -d float \" + rutaOriginal + \" -o \" + rutaTX + \"\\n\"\nbatchfile = rutaBase + \"/ConvertTX.bat\"\nbf = open(batchfile, \"a+\")\nbf.write(comandos)\nbf.close()"
+ afterRender "import subprocess\nfrom subprocess import Popen\nimport os\nimport nuke\n\n###Ejecutar el batch en su directorio de trabajo, al terminar cambiarlo al antiguo y borrar el archivo batch\noldFolder = str(os.getcwd())\nrutaBase = os.path.dirname(nuke.thisNode().knob(\"file\").getValue())\nbatchfile = rutaBase + \"/ConvertTX.bat\"\np = subprocess.Popen(batchfile, shell=False, cwd=r'C:/solidangle/mtoadeploy/2018/bin', creationflags= subprocess.CREATE_NEW_CONSOLE)\np.wait()\nprint \"Proceso de conversion completado\"\nos.chdir(oldFolder)\nos.remove(batchfile)  "
+ name Write_TX_2018
+}
