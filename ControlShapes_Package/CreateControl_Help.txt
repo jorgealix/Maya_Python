@@ -1,0 +1,41 @@
+Warning:
+Do not Edit Shapes.py and shapes_list.txt files
+
+UI to create controls from list of available shapes
+
+Objects transforms should be free of constraints or connections
+
+Skinning/Constraint : create skinning or constraint from control to selected object or,
+                      just create controller node without connection to child
+
+Control type        : choose between skin cluster or constraints(Parent and/or Scale)
+
+Create joint        : if checked off only control shape is created without joint (Skinning cannot be done)
+
+Control name
+
+Text from Mesh Name : ener the text from mesh name that will be replaced with a replace text to name the control
+
+Rename to Control   : enter the name to replace the text entered above and assign as control name
+
+Control Name        : if checked on, takes a new name for the control instead of using the name from mesh
+
+Control Suffix Text : suffix for new names(works only with Control Name option checked on)
+
+Zero node           : Create a top parent node to zero out the control transformations
+
+Lock Scale/
+     Visibility/    : Lock and hide, Scale, visibility and radius(for joint) attribute
+     Radius(joint)
+
+Control size offset : scale value to add(to the scale of object)
+              value 
+
+Control at object   : Makes the control to be positioned at object pivot(if turned off position options are enabled)
+            pivot
+
+
+Top/Bottom(Y Axis)  : position the control at high or low along Y axis point as per selection
+Left/Right(X Axis)  : position the control at high or low along X axis point as per selection
+Front/back(Z Axis)  : position the control at high or low along Z axis point as per selection
+                 
