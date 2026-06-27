@@ -1,0 +1,19 @@
+"""
+This will iterate all modelPanels and remove the "CgAbBlastPanelOptChangeCallback"
+
+As such, after running this the following error should be fixed:
+    // Error: line 1: Cannot find procedure "CgAbBlastPanelOptChangeCallback". //
+"""
+
+from maya import cmds
+
+for model_panel in cmds.getPanel(typ="modelPanel"):
+    
+    # Get callback of the model editor
+    callback = cmds.modelEditor(model_panel, query=True, editorChanged=True)
+    
+    # If the callback is the erroneous `CgAbBlastPanelOptChangeCallback`
+    if callback == "CgAbBlastPanelOptChangeCallback":
+        
+        # Remove the callbacks from the editor
+        cmds.modelEditor(model_panel, edit=True, editorChanged="")

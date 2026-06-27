@@ -1,0 +1,1 @@
+file -r -type "mayaAscii"  -ignoreVersion -gl -mergeNamespacesOnClash true -namespace ":" -options "v=0;" "Z:/LIBRERIA/HDR/ibl_neutral_rig_01/scenes/ibl_neutral_rig_02.ma";
