@@ -1,0 +1,111 @@
+mat_setup.JSON : a JSON file that contains material presets/blueprints
+
+Material Preset Recipe:
+
+{"Preset": "Redshift Material PBR", // Name of preset (shows up in menu)
+"Engine": "Redshift",               // Name of render engine (currently unused)
+"Material":"RedshiftMaterial",      // Shader node name
+"Material_postcode": "print('setting fresnel type to metalness');base_material_node.setAttr('refl_fresnel_mode',2)", 
+                                    // Code that gets run after the base material is made, used to modify attributes. Here it sets the reflection type to Metalness in the redshift shader.
+"Normalnode":"RedshiftBumpMap",     // Normal node name (this might be specific to each render engine)
+"Normalnode_type":"texture",        // The class of the normal node. Currently, "texture" and "utility" are supported as options
+"Normal_in": "input",               // Normal node input attribute name
+"Normal_out": "out",                // Normal node output attribute name
+"Normal_postcode": "print('modifying contents of normal node');normal_node.setAttr('inputType',1)", // Code that gets run after the normal node is made to modify it's contents.
+"Displacementnode":"RedshiftDisplacement", //Displacement node name (might be specific to render engine)
+"Displacementnode_type": "shader",         // Class of displacement node. Displacement nodes are always shaders, this option is kind of redundant.
+"Displacement_in": "texMap",               // Displacement node input attribute
+"Displacement_out": "out",                 // Displacement node output attribute
+"Displacement_postcode": "print('modifying contents of displacement node');displacement_node.setAttr('newrange_min',-0.5);displacement_node.setAttr('newrange_max',0.5)", 
+                                                                                                                      // Code that gets run after Displacement is made
+"Diffuse": "diffuse_color",         // Diffuse color input attribute
+"Roughness": "refl_roughness",      // Roughness input attribute
+"Metallic" : "refl_metalness",      // Metalness input attribute
+"Reflectivity": "refl_color",       // Reflectivity/specular input attribute
+"Refraction": "refr_weight",        // Refraction input attribute
+"Emissive" : "emission_color",      // Emission input attribute
+"Emissive_postcode" : "print('modifying contents of emission parameter');base_material_node.setAttr('emission_weight',1)", 
+                                                                                  // Code that gets run if emission is present, useful for setting it up automatically.
+"Opacity" : "opacity_color",        // Opacity input attribute
+"Normal": "bump_input",             // Normal map input
+"Height": "rsDisplacementShader"    // Displacement input on SG node (the node at the end of the network. Some engines benefit from a different connection than others.
+}
+
+======================================================
+|| HELP! A shader I want to make a preset for doesn't have a feature that's on this list!
+||
+||  - Don't worry, by setting up an attribute like this, with either "None", "none", or "" in the attribute part, the script will skip over the creation of the file node associated with it
+
+"Reflectivity": "None",
+"Refraction": "none", 
+"Emissive" : "",
+
+===========================================================================
+|| How do I figure out what attributes I need to put in a preset entry in the first place?
+|| 
+||  - That's relatively easy to do. I've given you the tools to figure that out, secretly, in this script already
+||    Type: TOOL_ATTR into the substring search menu, 
+||    and then press the "About" button again while having a node selected to print everything about a node to the script editor. 
+||    It should look something like this:
+
+BONUS! Printing attributes for selected node: rsMaterial1 of type RedshiftMaterial
+message
+caching
+frozen
+isHistoricallyInteresting
+nodeState
+version
+outColor
+outColorR
+outColorG
+outColorB
+shaderNodeTemplate
+outApiType
+outApiClassification
+preset
+diffuse_color
+diffuse_colorR
+diffuse_colorG
+diffuse_colorB
+diffuse_weight
+diffuse_roughness
+transl_color
+transl_colorR
+transl_colorG
+.
+.
+.
+
+|| The first line will have the node type at the end. This will go in "Material" for materials, "Displacmenetnode" for displacement, "Normalnode" for specific normal/bump nodes, etc.
+|| The rest are just attributes. The script automatically detect whether it needs to use the Alpha or Color output of a file node, so don't worry about that.
+||
+|| You can figure out loads of things for the code injection things using Script Editor -> History -> Echo all commands.
+|| If you activate that, everything you do will pop up in the console and you can figure out what attribute you changed last!
+
+============================================
+|| MY JSON DONT WANNA LOAD WHAT DO I DO?
+
+As always, the file should look like this
+
+[                          //we open the file with an open square bracket
+
+{
+preset1
+}
+
+,                          //please be mindful to put commas between entries or the file will fail to read
+
+{
+preset2
+}
+
+,
+
+{
+preset3
+}
+
+]                          //we close the file with a closed square bracket
+
+
+As long as you keep the first column and the commas both after each entry and between presets intact, you should be fine.

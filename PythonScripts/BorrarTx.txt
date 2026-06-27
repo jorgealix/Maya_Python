@@ -1,0 +1,1 @@
+Get-ChildItem -Path "S:\cena\assets" -Recurse -Include *.tx | Remove-Item -Force

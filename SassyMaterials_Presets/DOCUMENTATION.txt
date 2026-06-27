@@ -1,0 +1,41 @@
+Sassy materials, An automatic way to set up materials:
+
+1. INSTALLATION
+
+Put the contents of scripts folder in your maya scripts folder: /User/Documents/maya/2020/scripts/
+SassyMaterials.py and SassyMaterialsUI.py scripts, and the entirety of the SassyMaterials_Presets folder)
+
+Then, put the following in a custom shelf tab, with python as code.
+(Open script editor, in empty python tab, paste the code, select it all, middle mouse drag it to a shelf)
+
+import SassyMaterials
+reload(SassyMaterials)
+SassyMaterials.main()
+
+Click the button and you are done!
+
+For a visual guide, check out Install_Tutorial.png
+
+2. WORKFLOW
+
+A general workflow would look like this:
+
+	-  Click "Browse root folder" and navigate to where your textures are stored.
+	   When you have a folder in your "Root search folder" line, you can then either
+
+	   -  Use the "Browse" buttons for each kind of map. It'll automatically jump to the root search folder, and if that's not set, 
+	      it'll stay in the same directory as the maya file.
+
+	   -  Use the Autosearch by choosing a naming convention from the texture names tab, pressing reset prefixes to apply it,
+              selecting the maps you want to search for with the checkboxes, and then pressing "Autosearch in folder".
+	      It can be a bit bothersome if there are multiple materials worth of textures in one folder.
+	      That's bad practise, but, it happens. For that, use "Additional substring search" to make sure that 
+
+	-  After all your filenames are in place, you can then name your material in the "Material name" tab,
+	   Check the checkboxes of all the file nodes you want to construct, and choosing a preset for what kind of material you want to make.
+	   Check out the extra options for inverting the Opacity map, and enabling UDIM settings too.
+
+3. EXTRA DOCUMENTATION
+
+Refer to DOCUMENTATION_MATSETUP.txt on how to make your own presets within the mat_setup.JSON file to fit whatever render engine/material you need.
+Refer to DOCUMENTATION_MATPREFIX.txt on how to make your own naming convention presets for the mat_prefix.JSON file.

@@ -1,0 +1,43 @@
+[
+
+{"Prefixname" : "PBR Generic",
+"Prefixes": {"self.ui.line_diffuse" : "BaseColor",
+             "self.ui.line_roughness" : "Roughness",
+             "self.ui.line_metalness" : "Metallic",
+             "self.ui.line_reflectivity" : "Specular",
+             "self.ui.line_refraction" : "Refraction",
+             "self.ui.line_opacity" : "Opacity",
+             "self.ui.line_normal" : "Normal",
+             "self.ui.line_height" : "Height",
+             "self.ui.line_emissive" : "Emissive"}
+}
+
+,
+
+{"Prefixname" : "Substance Redshift MetalRough",
+"Prefixes": {"self.ui.line_diffuse": "DiffuseColor",
+             "self.ui.line_roughness" : "Roughness",
+             "self.ui.line_metalness" : "Metallic",
+             "self.ui.line_reflectivity" : "Specular",
+             "self.ui.line_refraction" : "Refraction",
+             "self.ui.line_opacity" : "Opacity",
+             "self.ui.line_normal" : "Normal",
+             "self.ui.line_height" : "Height",
+             "self.ui.line_emissive" : "EmissionColor"}
+}
+
+,
+
+{"Prefixname" : "Substance Arnold",
+"Prefixes": {"self.ui.line_diffuse" : "BaseColor",
+             "self.ui.line_roughness" : "Roughness",
+             "self.ui.line_metalness" : "Metalness",
+             "self.ui.line_reflectivity" : "Specular",
+             "self.ui.line_refraction" : "Refraction",
+             "self.ui.line_opacity" : "Opacity",
+             "self.ui.line_normal" : "Normal",
+             "self.ui.line_height" : "Height",
+             "self.ui.line_emissive" : "Emissive"}
+}
+
+]

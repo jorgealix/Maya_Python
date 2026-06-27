@@ -1,0 +1,42 @@
+mat_prefix.JSON : A JSON file that contains naming convention presets.
+
+Naming convention preset recipe:
+
+{"Prefixname" : "PBR Generic",                            //The name that shows up in the list
+"Prefixes": {"self.ui.line_diffuse" : "BaseColor",        //Color maps suffix
+             "self.ui.line_roughness" : "Roughness",      //Roughness maps suffix
+             "self.ui.line_metalness" : "Metallic",       //Metalness maps suffix
+             "self.ui.line_reflectivity" : "Specular",    //Reflectivity/Specular maps suffix
+             "self.ui.line_refraction" : "Refraction",    //Refraction maps suffix
+             "self.ui.line_opacity" : "Opacity",          //Opacity/Alpha maps suffix
+             "self.ui.line_normal" : "Normal",            //Normal map sufix
+             "self.ui.line_height" : "Height",            //Height/Displacement map suffix
+             "self.ui.line_emissive" : "Emissive"}        //Emission map suffix
+}
+
+Don't modify the first column, those are references to UI elements. Everything else on the second column, so "PBR Generic", "BaseColor", "Roughness", etc, is editable.
+
+As always, the file should look like this
+
+[                          //we open the file with an open square bracket
+
+{
+preset1
+}
+
+,                          //please be mindful to put commas between entries or the file will fail to read
+
+{
+preset2
+}
+
+,
+
+{
+preset3
+}
+
+]                          //we close the file with a closed square bracket
+
+
+As long as you keep the first column and the commas both after each entry and between presets intact, you should be fine.

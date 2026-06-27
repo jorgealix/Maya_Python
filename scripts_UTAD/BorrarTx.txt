@@ -1,0 +1,2 @@
+Para ejecutar este comando , abrir una ventana de PowerShell y copiar este texto, cambiando la ruta donde se quiere actuar
+Get-ChildItem -Path "S:\cena\assets" -Recurse -Include *.tx | Remove-Item -Force
